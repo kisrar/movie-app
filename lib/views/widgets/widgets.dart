@@ -1,2 +1,2 @@
 export 'search_bar.dart';
-export 'news_card.dart';
+export 'movie_card.dart';

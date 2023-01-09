@@ -10,17 +10,11 @@ class HomeViewModel extends ChangeNotifier {
   HomeViewModel({required HomeRepository homeRepository})
       : _homeRepository = homeRepository;
 
-  @override
-  void dispose() {
-    searchTEC.dispose();
-    super.dispose();
-  }
-
   final HomeRepository _homeRepository;
   List<MovieCardViewModel> movies = [];
   HomeStatus homeStatus = HomeStatus.showLoader;
   bool _showSearchBar = false;
-  TextEditingController searchTEC = TextEditingController();
+  // TextEditingController searchTEC = TextEditingController();
 
   void showHideSearchBar() {
     _showSearchBar = !_showSearchBar;
@@ -42,11 +36,11 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getNewsByKeywords() async {
+  Future<void> searchMovies({required String query}) async {
     homeStatus = HomeStatus.showSearching;
     notifyListeners();
     List<Movie> movieModelList =
-        await _homeRepository.searchMovies(searchKey: searchTEC.text);
+        await _homeRepository.searchMovies(query: query);
     movies = movieModelList
         .map((movie) => MovieCardViewModel(movie: movie))
         .toList();

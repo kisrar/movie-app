@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/views/widgets/nothing_found.dart';
 import 'package:provider/provider.dart';
-
 import '../view_models/view_models.dart';
 import 'widgets/widgets.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,12 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF2F4FC),
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.newspaper),
+          icon: const Icon(Icons.movie_creation),
           onPressed: () {},
         ),
-        title: const Text('Top news'),
+        title: const Text('The Movies'),
         actions: [
           IconButton(
             onPressed: viewModel.showHideSearchBar,
@@ -57,19 +57,19 @@ class _HomeScreenState extends State<HomeScreen> {
     if (viewModel.homeStatus == HomeStatus.showLoader) {
       return const Center(child: CircularProgressIndicator());
     } else if (viewModel.homeStatus == HomeStatus.showEmpty) {
-      return const Center(
-        child: Text('No news found'),
-      );
+      return const NothingFound();
     } else if (viewModel.homeStatus == HomeStatus.showSearching) {
       return const Padding(
         padding: EdgeInsets.all(16),
-        child: Text('Searching news ...'),
+        child: Text('Searching movies ...'),
       );
     }
-    return ListView.builder(
+    return GridView.builder(
         itemCount: viewModel.movies.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (context, index) {
-          return MovieCard(article: viewModel.movies[index]);
+          return MovieCard(movie: viewModel.movies[index]);
         });
   }
 }

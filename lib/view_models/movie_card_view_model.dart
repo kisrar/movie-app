@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../views/views.dart';
 import '/models/models.dart';
 
 class MovieCardViewModel {
@@ -9,8 +10,8 @@ class MovieCardViewModel {
   String get title => _movie.title;
 
   void gotoDetailsScreen(BuildContext context) {
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-    //   return ArticleDetailsView(detailsUrl: urlToImage);
-    // }));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return MovieDetailsView(movieCardViewModel: this);
+    }));
   }
 }

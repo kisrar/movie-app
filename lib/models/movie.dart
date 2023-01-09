@@ -14,11 +14,11 @@ class Movie {
 
   factory Movie.fromMap(Map<String, dynamic> map) {
     return Movie(
-      title: map['title'] ?? '',
-      posterImageUrl: 'https://image.tmdb.org/t/p/w185${map['posterImageUrl']}',
+      title: map['original_title'] ?? '',
+      posterImageUrl: 'https://image.tmdb.org/t/p/w185${map['poster_path']}',
       overview: map['overview'] ?? '',
-      rating: map['rating']?.toDouble() ?? 0.0,
-      releaseDate: DateTime.parse(map['releaseDate']),
+      rating: map['vote_average']?.toDouble() ?? 0.0,
+      releaseDate: DateTime.parse(map['release_date']),
     );
   }
 
