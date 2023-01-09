@@ -14,7 +14,6 @@ class HomeRepositoryImp implements HomeRepository {
     List<Movie>? movies = await apiClient.sendRequest<List<Movie>>(
         requestType: RequestType.get,
         relativeUrl: EndPoints.popularMovies,
-        // queryParameters: {'apiKey' : 'd2d3210e151348ec83015bbd2de5dd67','country' : 'us'},
         onSuccess: (response) {
           return (response['results'] as List)
               .map((articleMap) => Movie.fromMap(articleMap))
