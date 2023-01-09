@@ -1,4 +1,4 @@
 abstract class EndPoints {
-  static const String topNews = 'top-headlines';
-  static const String searchNews = 'everything';
+  static const String popularMovies = 'movie/popular';
+  static const String searchNews = 'search/movie';
 }

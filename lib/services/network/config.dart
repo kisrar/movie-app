@@ -1,4 +1,4 @@
 abstract class Config {
-  static const String host = 'https://newsapi.org';
-  static const String version = '/v2';
+  static const String host = 'https://api.themoviedb.org';
+  static const String version = '3';
 }
