@@ -13,15 +13,20 @@ class MoviesGrid extends StatefulWidget {
 
 class _MoviesGridState extends State<MoviesGrid> {
   ScrollController scrollController = ScrollController();
-
+  late HomeViewModel homeViewModel;
   @override
   void initState() {
     super.initState();
+    homeViewModel = Provider.of<HomeViewModel>(context, listen: false);
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
-        debugPrint('Reached last movie');
-        Provider.of<HomeViewModel>(context, listen: false).getPopularMovies(loadingMore : true);
+        if (homeViewModel.isSearching) {
+          homeViewModel.searchMovies(loadingMore: true);
+        } else {
+        homeViewModel.getPopularMovies(loadingMore: true);
+
+        }
       }
     });
   }
@@ -30,9 +35,6 @@ class _MoviesGridState extends State<MoviesGrid> {
   Widget build(BuildContext context) {
     return Consumer<HomeViewModel>(
       builder: ((context, viewModel, child) {
-        /* if (viewModel.homeStatus == HomeStatus.showLoader) {
-          return const Center(child: CircularProgressIndicator());
-        } else */
         if (viewModel.homeStatus == HomeStatus.showEmpty) {
           return const NothingFound();
         } else if (viewModel.homeStatus == HomeStatus.showSearching) {
@@ -43,7 +45,7 @@ class _MoviesGridState extends State<MoviesGrid> {
         }
         return RefreshIndicator(
           onRefresh: () async {
-            viewModel.getPopularMovies();
+            viewModel.getPopularMovies(isRefresh: true);
           },
           child: GridView.builder(
               controller: scrollController,
@@ -56,7 +58,7 @@ class _MoviesGridState extends State<MoviesGrid> {
                 if (index < viewModel.movies.length) {
                   return MovieCard(movie: viewModel.movies[index]);
                 } else {
-                  return Text('Loading Movie');
+                  return const Text('Loading Movie');
                 }
               }),
         );

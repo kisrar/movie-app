@@ -16,6 +16,8 @@ class HomeViewModel extends ChangeNotifier {
   bool _showSearchBar = false;
   int currentPage = 1;
   int totalPage = 1;
+  bool isSearching = false;
+  TextEditingController searchTEC = TextEditingController();
 
   void showHideSearchBar() {
     _showSearchBar = !_showSearchBar;
@@ -24,13 +26,16 @@ class HomeViewModel extends ChangeNotifier {
 
   bool get showSearchBar => _showSearchBar;
 
-  Future<void> getPopularMovies({bool isRefresh = false,bool loadingMore = false}) async {
+  Future<void> getPopularMovies(
+      {bool isRefresh = false, bool loadingMore = false}) async {
+    isSearching = false;
+
     if (isRefresh) {
-      currentPage = currentPage = 1;
-    } 
-    if(loadingMore){
-    homeStatus = HomeStatus.showLoader;
-    notifyListeners();
+      currentPage = 1;
+    }
+    if (loadingMore) {
+      homeStatus = HomeStatus.showLoader;
+      notifyListeners();
     }
 
     MovieResponseModel? movieResponseModel =
@@ -53,16 +58,30 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchMovies({required String query}) async {
-    homeStatus = HomeStatus.showSearching;
+  Future<void> searchMovies({bool loadingMore = false}) async {
+    isSearching = true;
+
+    if (loadingMore) {
+      homeStatus = HomeStatus.showLoader;
+    } else {
+      currentPage = 1;
+      homeStatus = HomeStatus.showSearching;
+    }
     notifyListeners();
-    MovieResponseModel? movieResponseModel =
-        await _homeRepository.searchMovies(query: query);
+
+    MovieResponseModel? movieResponseModel = await _homeRepository.searchMovies(
+        query: searchTEC.text, page: currentPage++);
     totalPage = movieResponseModel?.totalPages ?? 1;
-    movies = movieResponseModel?.movies
+    List<MovieCardViewModel> newMovies = movieResponseModel?.movies
             .map((movie) => MovieCardViewModel(movie: movie))
             .toList() ??
         [];
+    if (loadingMore) {
+      movies.addAll(newMovies);
+    } else {
+      movies = newMovies;
+    }
+
     if (movies.isEmpty) {
       homeStatus = HomeStatus.showEmpty;
     } else {

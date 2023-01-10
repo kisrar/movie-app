@@ -3,7 +3,7 @@ import '/services/network/network.dart';
 
 abstract class HomeRepository {
   Future<MovieResponseModel?> getPopularMovies({required int page});
-  Future<MovieResponseModel?> searchMovies({required String query});
+  Future<MovieResponseModel?> searchMovies({required String query,required int page});
 }
 
 class HomeRepositoryImp implements HomeRepository {
@@ -26,12 +26,13 @@ class HomeRepositoryImp implements HomeRepository {
   }
 
   @override
-  Future<MovieResponseModel?> searchMovies({required String query}) async {
+  Future<MovieResponseModel?> searchMovies({required String query,required int page}) async {
     MovieResponseModel? movieResponseModel = await apiClient.sendRequest<MovieResponseModel?>(
         requestType: RequestType.get,
         relativeUrl: EndPoints.searchNews,
         queryParameters: {
           'query': query,
+          'page' : page
         },
         onSuccess: (response) {
           return MovieResponseModel.fromMap(response);

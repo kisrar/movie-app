@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../../view_models/view_models.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({super.key});
+  final TextEditingController searchTEC;
+  const SearchBar({super.key,required this.searchTEC});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -20,7 +21,9 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    searchTEC = TextEditingController();
+    // searchTEC = TextEditingController();
+    searchTEC = widget.searchTEC;
+
   }
 
   @override
@@ -43,7 +46,7 @@ class _SearchBarState extends State<SearchBar> {
               if (searchTEC.text.isEmpty) {
                   model.getPopularMovies();
                 } else {
-                  model.searchMovies(query: searchTEC.text);
+                  model.searchMovies();
                 }
             },
             onChanged: (_) {
@@ -62,7 +65,7 @@ class _SearchBarState extends State<SearchBar> {
                 if (searchTEC.text.isEmpty) {
                   model.getPopularMovies();
                 } else {
-                  model.searchMovies(query: searchTEC.text);
+                  model.searchMovies();
                 }
               });
             },
@@ -77,7 +80,7 @@ class _SearchBarState extends State<SearchBar> {
               prefixIcon: IconButton(
                 icon: const Icon(Icons.search, color: Colors.indigo),
                 onPressed: () {
-                  model.searchMovies(query: searchTEC.text);
+                  model.searchMovies();
                 },
               ),
               suffixIcon: showClearIcon
@@ -89,7 +92,7 @@ class _SearchBarState extends State<SearchBar> {
                         setState(() {
                           showClearIcon = false;
                         });
-                        model.getPopularMovies();
+                        model.getPopularMovies(isRefresh : true);
                       },
                     )
                   : null,

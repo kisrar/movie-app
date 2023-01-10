@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Column(
-        children: const [SearchBar(), Expanded(child: MoviesGrid())],
+        children:  [SearchBar(searchTEC: viewModel.searchTEC), Expanded(child: MoviesGrid())],
       ),
     );
   }
