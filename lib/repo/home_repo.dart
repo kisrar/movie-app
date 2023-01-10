@@ -2,45 +2,42 @@ import 'package:movies_app/models/models.dart';
 import '/services/network/network.dart';
 
 abstract class HomeRepository {
-  Future<List<Movie>> getPopularMovies();
-  Future<List<Movie>> searchMovies({required String query});
+  Future<MovieResponseModel?> getPopularMovies();
+  Future<MovieResponseModel?> searchMovies({required String query});
 }
 
 class HomeRepositoryImp implements HomeRepository {
   final NetworkService apiClient;
   HomeRepositoryImp({required this.apiClient});
   @override
-  Future<List<Movie>> getPopularMovies() async {
-    List<Movie>? movies = await apiClient.sendRequest<List<Movie>>(
+  Future<MovieResponseModel?> getPopularMovies() async {
+    MovieResponseModel? movieResponseModel = await apiClient.sendRequest<MovieResponseModel?>(
         requestType: RequestType.get,
         relativeUrl: EndPoints.popularMovies,
         onSuccess: (response) {
-          return (response['results'] as List)
-              .map((articleMap) => Movie.fromMap(articleMap))
-              .toList();
+          return MovieResponseModel.fromMap(response);
+      
         },
         onFailure: (errorType, msg) {
-          return [];
+          // return [];
         });
-    return movies ?? [];
+    return movieResponseModel;
   }
 
   @override
-  Future<List<Movie>> searchMovies({required String query}) async {
-    List<Movie>? movies = await apiClient.sendRequest<List<Movie>>(
+  Future<MovieResponseModel?> searchMovies({required String query}) async {
+    MovieResponseModel? movieResponseModel = await apiClient.sendRequest<MovieResponseModel?>(
         requestType: RequestType.get,
         relativeUrl: EndPoints.searchNews,
         queryParameters: {
           'query': query,
         },
         onSuccess: (response) {
-          return (response['results'] as List)
-              .map((articleMap) => Movie.fromMap(articleMap))
-              .toList();
+          return MovieResponseModel.fromMap(response);
         },
         onFailure: (errorType, msg) {
-          return [];
+          return null;
         });
-    return movies ?? [];
+    return movieResponseModel;
   }
 }

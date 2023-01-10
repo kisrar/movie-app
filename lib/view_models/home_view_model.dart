@@ -14,7 +14,6 @@ class HomeViewModel extends ChangeNotifier {
   List<MovieCardViewModel> movies = [];
   HomeStatus homeStatus = HomeStatus.showLoader;
   bool _showSearchBar = false;
-  // TextEditingController searchTEC = TextEditingController();
 
   void showHideSearchBar() {
     _showSearchBar = !_showSearchBar;
@@ -24,10 +23,10 @@ class HomeViewModel extends ChangeNotifier {
   bool get showSearchBar => _showSearchBar;
 
   Future<void> getPopularMovies() async {
-    List<Movie> movieModelList = await _homeRepository.getPopularMovies();
-    movies = movieModelList
+    MovieResponseModel? movieResponseModel = await _homeRepository.getPopularMovies();
+    movies = movieResponseModel?.movies
         .map((movie) => MovieCardViewModel(movie: movie))
-        .toList();
+        .toList()??[];
     if (movies.isEmpty) {
       homeStatus = HomeStatus.showEmpty;
     } else {
@@ -39,11 +38,11 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> searchMovies({required String query}) async {
     homeStatus = HomeStatus.showSearching;
     notifyListeners();
-    List<Movie> movieModelList =
+    MovieResponseModel? movieResponseModel =
         await _homeRepository.searchMovies(query: query);
-    movies = movieModelList
+    movies = movieResponseModel?.movies
         .map((movie) => MovieCardViewModel(movie: movie))
-        .toList();
+        .toList()??[];
     if (movies.isEmpty) {
       homeStatus = HomeStatus.showEmpty;
     } else {

@@ -38,17 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Consumer<HomeViewModel>(
-        builder: (context, viewModel, child) {
-          return Column(
-            children: [
-              const SearchBar(),
-              Expanded(
-                child: _buildBody(),
-              )
-            ],
-          );
-        },
+      body: Column(
+        children: [
+          const SearchBar(),
+          Expanded(child: MoviesGrid())
+          // Expanded(
+          //   child: _buildBody(),
+          // )
+        ],
       ),
     );
   }
