@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/neumorphism.dart';
 import 'package:movies_app/view_models/movie_card_view_model.dart';
+import 'package:movies_app/views/widgets/shimmer_container.dart';
 
 class MovieCard extends StatelessWidget {
   final MovieCardViewModel movie;
@@ -29,8 +30,8 @@ class MovieCard extends StatelessWidget {
             fit: BoxFit.fill,
             errorWidget: (context, url, error) =>
                 const Center(child: Icon(Icons.error)),
-            progressIndicatorBuilder: (context, url, progress) => Center(
-                child: CircularProgressIndicator(value: progress.progress)),
+            progressIndicatorBuilder: (context, url, progress) =>
+                const ShimmerContainer(height: 20),
           ),
         ),
         // subtitle: Text(article.overview),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/views/widgets/shimmer_container.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/view_models.dart';
@@ -24,8 +25,7 @@ class _MoviesGridState extends State<MoviesGrid> {
         if (homeViewModel.isSearching) {
           homeViewModel.searchMovies(loadingMore: true);
         } else {
-        homeViewModel.getPopularMovies(loadingMore: true);
-
+          homeViewModel.getPopularMovies(loadingMore: true);
         }
       }
     });
@@ -58,7 +58,7 @@ class _MoviesGridState extends State<MoviesGrid> {
                 if (index < viewModel.movies.length) {
                   return MovieCard(movie: viewModel.movies[index]);
                 } else {
-                  return const Text('Loading Movie');
+                  return const ShimmerItem();
                 }
               }),
         );

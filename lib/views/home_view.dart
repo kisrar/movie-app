@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import '../utilities/size_config.dart';
 import '../view_models/view_models.dart';
+import 'widgets/sort_dialog.dart';
 import 'widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF2F4FC),
       appBar: AppBar(
@@ -34,11 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             onPressed: viewModel.showHideSearchBar,
             icon: const Icon(Icons.search),
-          )
+          ),
+          const SortDialog(),
         ],
       ),
       body: Column(
-        children:  [SearchBar(searchTEC: viewModel.searchTEC), Expanded(child: MoviesGrid())],
+        children: [
+          SearchBar(searchTEC: viewModel.searchTEC),
+          const Expanded(child: MoviesGrid())
+        ],
       ),
     );
   }

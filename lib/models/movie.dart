@@ -1,14 +1,20 @@
 class Movie {
   final String title;
   final String posterImageUrl;
+  final String largePosterImageUrl;
+
   final String overview;
   final double rating;
-  final DateTime releaseDate;
+  final double popularity;
+  final String releaseDate;
   Movie({
     required this.title,
     required this.posterImageUrl,
+    required this.largePosterImageUrl,
+
     required this.overview,
     required this.rating,
+    required this.popularity,
     required this.releaseDate,
   });
 
@@ -16,9 +22,11 @@ class Movie {
     return Movie(
       title: map['original_title'] ?? '',
       posterImageUrl: 'https://image.tmdb.org/t/p/w185${map['poster_path']}',
+      largePosterImageUrl: 'https://image.tmdb.org/t/p/w400${map['poster_path']}',
       overview: map['overview'] ?? '',
       rating: map['vote_average']?.toDouble() ?? 0.0,
-      releaseDate: DateTime.parse(map['release_date']),
+      popularity: map['popularity']?.toDouble() ?? 0.0,
+      releaseDate: map['release_date'],
     );
   }
 

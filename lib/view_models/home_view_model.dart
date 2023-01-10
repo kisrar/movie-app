@@ -26,6 +26,16 @@ class HomeViewModel extends ChangeNotifier {
 
   bool get showSearchBar => _showSearchBar;
 
+  void sortMoviesByPopularity(){
+    movies.sort((a,b)=>a.popularity.compareTo(b.popularity));
+    notifyListeners();
+  }
+
+    void sortMoviesByHighestRating(){
+    movies.sort((a,b)=>a.rating.compareTo(b.rating));
+    notifyListeners();
+  }
+
   Future<void> getPopularMovies(
       {bool isRefresh = false, bool loadingMore = false}) async {
     isSearching = false;
