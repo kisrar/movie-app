@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../env/env.dart';
 import 'network_helper.dart';
 import 'network_enums.dart';
 import 'network_typedef.dart';
@@ -9,7 +10,7 @@ class NetworkService {
     return <String, String>{
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YmUyZjBkZDAwZTdhZWU2N2YxYTU2ZWNkZTliOTlhYSIsInN1YiI6IjYzYmJmYTgzYTZlMmQyMDA5MjEwYmUyZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Lvueb0adZlbenjmJsXbTn7TBtU2sm_5Wf0ea8mmyy0I'
+      'Authorization' : 'Bearer ${Env.tmdbApiKey}'
     };
   }
 
