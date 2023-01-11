@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/views/widgets/shimmer_container.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/view_models.dart';

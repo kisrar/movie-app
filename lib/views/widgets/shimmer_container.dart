@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../utilities/size_config.dart';
+import '../../utilities/utilities.dart';
+
 
 class ShimmerItem extends StatelessWidget {
   const ShimmerItem({super.key});
@@ -66,7 +67,6 @@ class ShimmerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.all(getProportionateScreenWidth(10)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -83,7 +83,7 @@ class ShimmerContainer extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: getProportionateScreenHeight(height),
-          color: Colors.grey[400],
+          color: Colors.grey.shade400,
         ),
       ),
     );

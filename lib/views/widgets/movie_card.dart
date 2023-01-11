@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/neumorphism.dart';
-import 'package:movies_app/view_models/movie_card_view_model.dart';
-import 'package:movies_app/views/widgets/shimmer_container.dart';
+import 'package:movies_app/utilities/utilities.dart';
+
+import '../../view_models/view_models.dart';
+import '../views.dart';
 
 class MovieCard extends StatelessWidget {
   final MovieCardViewModel movie;

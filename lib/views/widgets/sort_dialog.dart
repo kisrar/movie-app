@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:movies_app/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
+
+import '../../view_models/view_models.dart';
 
 enum SortBy { popularity, highestRated }
 

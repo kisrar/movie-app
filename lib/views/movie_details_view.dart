@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:movies_app/utilities/extensions.dart';
-import 'package:movies_app/view_models/movie_card_view_model.dart';
-import 'package:movies_app/views/widgets/shimmer_container.dart';
+import '../utilities/utilities.dart';
+
+import '../view_models/view_models.dart';
+import 'views.dart';
 
 class MovieDetailsView extends StatelessWidget {
   final MovieCardViewModel movieCardViewModel;

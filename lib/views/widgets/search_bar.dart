@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:movies_app/neumorphism.dart';
+import 'package:movies_app/utilities/utilities.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/view_models.dart';
